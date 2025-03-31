@@ -1,18 +1,18 @@
 const express = require("express");
 const mariadb = require("mariadb");
-const path = require('paths')
+const path = require('path')
 require('dotenv').config();
 const app = express();
 
 const pool = mariadb.createPool({
-    host: '127.0.0.1',
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     connectionLimit: 5,
 });
 
-const publicDirectory = path.join(__dirname, public);
+const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory));
 app.set('view engine', 'hbs');
 
@@ -68,7 +68,7 @@ async function startServer() {
 }
 
 // Routes
-app.use("/", require('./routes.pages'));
+app.use("/", require('./routes/pages'));
 
 
 // Start the server
