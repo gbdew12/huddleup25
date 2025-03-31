@@ -68,17 +68,8 @@ async function startServer() {
 }
 
 // Routes
-app.get("/", (req, res) => { 
-    res.render("index");
-});
+app.use("/", require('./routes.pages'));
 
-app.get("/login", (req, res) =>{
-    res.render('login')
-});
-
-app.get("/register", (req, res) =>{
-    res.render('register')
-});
 
 // Start the server
 startServer();
