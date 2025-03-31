@@ -1,5 +1,6 @@
 const express = require("express");
 const mariadb = require("mariadb");
+const path = require('paths')
 require('dotenv').config();
 const app = express();
 
@@ -10,6 +11,10 @@ const pool = mariadb.createPool({
     database: process.env.DB_DATABASE,
     connectionLimit: 5,
 });
+
+const publicDirectory = path.join(__dirname, public);
+app.use(express.static(publicDirectory));
+app.set('view engine', 'hbs');
 
 async function query(sql, params) {
     let conn;
@@ -58,13 +63,21 @@ async function startServer() {
             error: err.message,
             stack: err.stack
         });
-        process.exit(1); // 👈 Exit with error code
+        process.exit(1); 
     }
 }
 
 // Routes
 app.get("/", (req, res) => { 
-    res.send("<h1>Home Page</h1>")
+    res.render("index");
+});
+
+app.get("/login", (req, res) =>{
+    res.render('login')
+});
+
+app.get("/register", (req, res) =>{
+    res.render('register')
 });
 
 // Start the server
