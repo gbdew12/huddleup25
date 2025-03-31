@@ -1,9 +1,12 @@
+//these are the inports 
 const express = require("express");
 const mariadb = require("mariadb");
 const path = require('path')
 require('dotenv').config();
 const app = express();
 
+//This generates the connection to our database 
+//if the code is crashing make sure that the .env file exist if not you gotta make a new one using the group credentials
 const pool = mariadb.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -12,10 +15,12 @@ const pool = mariadb.createPool({
     connectionLimit: 5,
 });
 
+//This code is just to tell node that we are using handlebars, and where to find the css files
 const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory));
 app.set('view engine', 'hbs');
 
+//This is the function for a query to our database
 async function query(sql, params) {
     let conn;
     try {
@@ -40,7 +45,8 @@ async function query(sql, params) {
         }
     }
 }
-
+//Made this when I was crashing out, it just makes sure we connect to our database on startup
+//We can remove it if ya'll want but it's helpful
 async function testConnection() {
     try {
         await query('SELECT 1 + 1 AS test');
@@ -51,6 +57,7 @@ async function testConnection() {
     }
 }
 
+//This just starts the server 
 async function startServer() {
     try {
         await testConnection();
@@ -67,7 +74,7 @@ async function startServer() {
     }
 }
 
-// Routes
+// Routes are hosted in the pages.js file go there to mess with them
 app.use("/", require('./routes/pages'));
 
 
