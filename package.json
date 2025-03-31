@@ -1,0 +1,30 @@
+{
+  "name": "huddleup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbdew12/huddleup25.git"
+  },
+  "keywords": [],
+  "author": "George Dew",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gbdew12/huddleup25/issues"
+  },
+  "homepage": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "hbs": "^4.2.0",
+    "mariadb": "^3.4.0",
+    "node-ssh": "^13.2.1",
+    "nodemon": "^3.1.9",
+    "ssh2": "^1.16.0"
+  }
+}
