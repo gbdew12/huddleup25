@@ -18,6 +18,8 @@ const pool = mariadb.createPool({
 //This code is just to tell node that we are using handlebars, and where to find the css files
 const publicDirectory = path.join(__dirname, './public');
 app.use(express.static(publicDirectory));
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 app.set('view engine', 'hbs');
 
 //This is the function for a query to our database
@@ -76,7 +78,7 @@ async function startServer() {
 
 // Routes are hosted in the pages.js file go there to mess with them
 app.use("/", require('./routes/pages'));
-
+app.use('/auth', require('./routes/auth'));
 
 // Start the server
 startServer();
